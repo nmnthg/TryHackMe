@@ -1,0 +1,50 @@
+go to webpage.
+view page source to see a note that gives username: R1ckRul3s
+
+gobuster 
+/.hta (Status: 403)
+/.htpasswd (Status: 403)
+/.htaccess (Status: 403)
+/assets (Status: 301)
+/index.html (Status: 200)
+/robots.txt (Status: 200)
+/server-status (Status: 403)
+
+robots.txt displays "Wubbalubbadubdub".
+looks like a password.
+
+nmap shows 
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+tried to ssh in with user name and postential password found above. 
+didn't work.
+
+/assets shows a bunch of picture files.
+do string and other reverse steganography attempts on them, nothing.
+
+bang head against wall for 30min.
+re-numerate web directory with gobuster specifying -x php,txt,js
+new gobuster
+/login.php (Status: 200)
+/assets (Status: 301)
+/portal.php (Status: 302)
+/robots.txt (Status: 200)
+
+login at ./login.php with username and potential password
+do ls, interesting files:
+cat command is disabled but you can use less to view read the files
+Sup3rS3cretPickl3Ingred.txt (1st flag)
+clue.txt - says to look around the directories for flags
+
+pwd shows we're in var/www/html
+cd to / and ls, go to home/ 2nd flag is there
+3rd flag is probably in the root folder but we don't have permission
+
+create a reverse shell, upload linpeas.sh, chmod +x and run it
+linpeas will tell you www-data (you) can run any command as root, so just do /bash and you got yourself root permissions
+3rd flag is in /root
+
+alternatively you don't have to use linpeas, just do sudo -l to check your permission and you will find the same info
+then just sudo /root
+

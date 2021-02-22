@@ -1,0 +1,25 @@
+--2021-02-22 00:28:10--  http://10.10.138.234/assets/portal.jpg
+Connecting to 10.10.138.234:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 51203 (50K) [image/jpeg]
+Saving to: ‘portal.jpg’
+
+     0K .......... .......... .......... .......... .......... 99%  102K 0s
+    50K                                                       100% 5.59G=0.5s
+
+2021-02-22 00:28:11 (102 KB/s) - ‘portal.jpg’ saved [51203/51203]
+
+--2021-02-22 00:28:11--  http://portal.jpg/
+Resolving portal.jpg (portal.jpg)... 23.195.69.108, 23.202.231.168
+Connecting to portal.jpg (portal.jpg)|23.195.69.108|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 356 [text/html]
+Saving to: ‘index.html’
+
+     0K                                                       100% 29.2M=0s
+
+2021-02-22 00:28:11 (29.2 MB/s) - ‘index.html’ saved [356/356]
+
+FINISHED --2021-02-22 00:28:11--
+Total wall clock time: 1.0s
+Downloaded: 2 files, 50K in 0.5s (102 KB/s)
