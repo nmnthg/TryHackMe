@@ -1,0 +1,50 @@
+Starting enum4linux v0.8.9 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Wed Feb 24 14:04:49 2021
+
+ ========================== 
+|    Target Information    |
+ ========================== 
+Target ........... 10.10.109.114
+RID Range ........ 500-550,1000-1050
+Username ......... ''
+Password ......... ''
+Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none
+
+
+ ===================================================== 
+|    Enumerating Workgroup/Domain on 10.10.109.114    |
+ ===================================================== 
+[+] Got domain/workgroup name: WORKGROUP
+
+ ====================================== 
+|    Session Check on 10.10.109.114    |
+ ====================================== 
+[+] Server 10.10.109.114 allows sessions using username '', password ''
+
+ ============================================ 
+|    Getting domain SID for 10.10.109.114    |
+ ============================================ 
+Domain Name: WORKGROUP
+Domain Sid: (NULL SID)
+[+] Can't determine if host is part of domain or part of a workgroup
+
+ ============================== 
+|    Users on 10.10.109.114    |
+ ============================== 
+
+
+ ========================================== 
+|    Share Enumeration on 10.10.109.114    |
+ ========================================== 
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	Anonymous       Disk      
+	IPC$            IPC       IPC Service (Samba Server 4.3.11-Ubuntu)
+SMB1 disabled -- no workgroup available
+
+[+] Attempting to map shares on 10.10.109.114
+//10.10.109.114/Anonymous	Mapping: OK, Listing: OK
+//10.10.109.114/IPC$	[E] Can't understand response:
+NT_STATUS_OBJECT_NAME_NOT_FOUND listing \*
+enum4linux complete on Wed Feb 24 14:05:02 2021
+

